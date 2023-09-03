@@ -1,19 +1,32 @@
 version: '3'
 services:
   keycloak:
-    image: jboss/keycloak
+    image: quay.io/keycloak/keycloak:22.0.1
     environment:
-      - KEYCLOAK_USER=admin
-      - KEYCLOAK_PASSWORD=admin
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
       - DB_VENDOR=h2
     ports:
       - "8080:8080"
-
+    command:
+      - start-dev
+      - --import-realm
+    volumes:
+      - ./realmszczuk.json:/opt/keycloak/data/import/realmszczuk.json
+    networks:
+      - keycloak-network
   keycloak-spring:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      WAIT_HOSTS: keycloak:8080
     ports:
-      - "8081:8080"
+      - "8081:8081"
     depends_on:
       - keycloak
+    networks:
+      - keycloak-network
+networks:
+  keycloak-network:
+    driver: bridge
