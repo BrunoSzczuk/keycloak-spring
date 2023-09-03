@@ -20,7 +20,7 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      WAIT_HOSTS: keycloak:8080
+      - KEYCLOAK_URL=http://keycloak:8080
     ports:
       - "8081:8081"
     depends_on:

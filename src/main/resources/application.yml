@@ -1,5 +1,5 @@
-issuer: http://localhost:8080/realms/RealmSzczuk
-origins: http://localhost:8081,http://localhost:8080
+issuer: ${KEYCLOAK_URL:'http://localhost:8080'}/realms/RealmSzczuk
+origins: http://localhost:8081,${KEYCLOAK_URL:'http://localhost:8080'}
 
 server:
   port: 8081
