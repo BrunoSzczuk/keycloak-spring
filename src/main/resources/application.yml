@@ -1,0 +1,26 @@
+issuer: http://localhost:8080/realms/RealmSzczuk
+origins: http://localhost:8081,http://localhost:8080
+
+server:
+  port: 8081
+
+com:
+  c4-soft:
+    springaddons:
+      oidc:
+        ops:
+          - iss: ${issuer}
+            username-claim: preferred_username
+            authorities:
+              - path: $.realm_access.roles
+                prefix: ROLE_
+              - path: $.resource_access.*.roles
+        resourceserver:
+          cors:
+            - path: /**
+              allowed-origin-patterns: ${origins}
+          permit-all:
+            - "/actuator/health/readiness"
+            - "/actuator/health/liveness"
+            - "/v3/api-docs/**"
+
