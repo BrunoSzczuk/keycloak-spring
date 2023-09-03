@@ -25,7 +25,7 @@ To get started with this application, follow these steps:
 1. Clone this repository:
 
    ```shell
-   git clone https://github.com/your-username/keycloak-spring.git
+   git clone https://github.com/BrunoSzczuk/keycloak-spring.git
     ```
    Navigate to the project directory:
       ```shell
