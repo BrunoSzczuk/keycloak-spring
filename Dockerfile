@@ -5,7 +5,7 @@ RUN gradle build
 
 FROM openjdk:17-jdk-slim-buster
 COPY --from=build /home/gradle/src/build/libs/keycloak-spring-0.0.1-SNAPSHOT.jar /app.jar
-
+COPY --from=ghcr.io/ufoscout/docker-compose-wait:latest /wait /wait
 EXPOSE 8081
 
-CMD ["java", "-jar", "/app.jar"]
+CMD /wait && java -jar /app.jar

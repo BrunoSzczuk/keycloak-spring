@@ -13,20 +13,15 @@ services:
       - --import-realm
     volumes:
       - ./realmszczuk.json:/opt/keycloak/data/import/realmszczuk.json
-    networks:
-      - keycloak-network
+
   keycloak-spring:
     build:
       context: .
       dockerfile: Dockerfile
     environment:
       - KEYCLOAK_URL=http://keycloak:8080
+      - WAIT_HOSTS=keycloak:8080
     ports:
       - "8081:8081"
     depends_on:
       - keycloak
-    networks:
-      - keycloak-network
-networks:
-  keycloak-network:
-    driver: bridge
